@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ATENDENTE
+  TECNICA
+  CIS
+  NPJ
+  ADMIN
+}
+
+enum AppointmentStatus {
+  agendado
+  triagem
+  tecnica
+  psicologia
+  juridica
+  finalizado
+}
+
+model User {
+  id                   String    @id @default(cuid())
+  name                 String
+  email                String    @unique
+  password             String
+  role                 UserRole
+  active               Boolean   @default(true)
+  complianceAccepted   Boolean   @default(false)
+  complianceAcceptedAt DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  @@map("users")
+}
+
+model Patient {
+  id           String        @id @default(cuid())
+  name         String
+  email        String
+  cpf          String        @unique
+  phone        String?
+  createdAt    DateTime      @default(now())
+  appointments Appointment[]
+
+  @@map("patients")
+}
+
+model Appointment {
+  id            String            @id @default(cuid())
+  patientId     String
+  patient       Patient           @relation(fields: [patientId], references: [id])
+  scheduledDate DateTime          @db.Date
+  scheduledTime String
+  status        AppointmentStatus @default(agendado)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  anamneseInicial  AnamneseInicial?
+  anamnesisTecnica AnamnesisTecnica?
+  prontuario       Prontuario?
+  obsJuridicas     ObservacaoJuridica[]
+  statusHistory    StatusHistory[]
+
+  @@map("appointments")
+}
+
+model AnamneseInicial {
+  id              String      @id @default(cuid())
+  appointmentId   String      @unique
+  appointment     Appointment @relation(fields: [appointmentId], references: [id])
+  attendantId     String
+  attendanceType  String
+  firstAttendance Boolean
+  territory       String?
+  raceColor       String?
+  gender          String?
+  violenceTypes   String[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@map("anamnese_inicial")
+}
+
+model AnamnesisTecnica {
+  id                       String      @id @default(cuid())
+  appointmentId            String      @unique
+  appointment              Appointment @relation(fields: [appointmentId], references: [id])
+  technicianId             String
+  imminentRisk             Boolean?
+  aggressorLivesWithVictim Boolean?
+  previousViolenceHistory  Boolean?
+  supportNetwork           Boolean?
+  childrenInvolved         Boolean?
+  observations             String?     @db.Text
+  orientations             Json?
+  referrals                Json?
+  referralDetails          String?     @db.Text
+  followupPlan             Json?
+  followupDate             DateTime?   @db.Date
+  caseSummary              String?     @db.Text
+  referralObjective        Json?
+  createdAt                DateTime    @default(now())
+  updatedAt                DateTime    @updatedAt
+
+  @@map("anamnese_tecnica")
+}
+
+model Prontuario {
+  id            String      @id @default(cuid())
+  appointmentId String      @unique
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  professionalId String
+  content       String      @db.Text
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("prontuarios")
+}
+
+model ObservacaoJuridica {
+  id             String      @id @default(cuid())
+  appointmentId  String
+  appointment    Appointment @relation(fields: [appointmentId], references: [id])
+  professionalId String
+  content        String      @db.Text
+  createdAt      DateTime    @default(now())
+
+  @@map("observacoes_juridicas")
+}
+
+model StatusHistory {
+  id            String            @id @default(cuid())
+  appointmentId String
+  appointment   Appointment       @relation(fields: [appointmentId], references: [id])
+  fromStatus    AppointmentStatus?
+  toStatus      AppointmentStatus
+  changedById   String
+  notes         String?
+  createdAt     DateTime          @default(now())
+
+  @@map("status_history")
+}
