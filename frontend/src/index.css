@@ -228,3 +228,93 @@ tbody tr:hover { background: var(--gray-50); }
   letter-spacing: .08em; margin: 20px 0 12px; padding-bottom: 6px;
   border-bottom: 2px solid var(--lilas-light);
 }
+
+/* ─── Hamburger button (mobile only) ─── */
+.hamburger {
+  display: none;
+  background: none; border: none;
+  color: var(--gray-800); font-size: 22px;
+  cursor: pointer; padding: 4px 8px;
+  line-height: 1;
+}
+
+/* Sidebar overlay (mobile) */
+.sidebar-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 99;
+}
+.sidebar-overlay.open { display: block; }
+
+/* ─── RESPONSIVE ─── */
+
+/* Tablet + Mobile: sidebar vira drawer */
+@media (max-width: 900px) {
+  .hamburger { display: flex; align-items: center; }
+
+  .sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    z-index: 100; width: 240px;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .main-content { width: 100%; }
+
+  .page-header { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
+  .page-header h1 { font-size: 17px; }
+
+  .page-body { padding: 16px; }
+
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* Mobile */
+@media (max-width: 560px) {
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+
+  .page-header { flex-direction: column; align-items: flex-start; }
+  .page-header > div { width: 100%; flex-wrap: wrap; }
+  .page-header input[type=date] { width: 100% !important; }
+
+  .modal { width: 96%; }
+  .modal-body { padding: 16px; }
+  .modal-footer { flex-wrap: wrap; }
+  .modal-footer .btn { flex: 1; justify-content: center; }
+
+  .login-box { padding: 28px 20px; margin: 16px; }
+  .public-box { padding: 24px 16px; }
+
+  .kpi-card .kpi-value { font-size: 26px; }
+
+  tbody td { padding: 10px 10px; font-size: 12.5px; }
+  thead th { padding: 8px 10px; }
+
+  .btn { font-size: 12.5px; padding: 7px 12px; }
+  .btn-sm { font-size: 11.5px; padding: 4px 9px; }
+}
+
+/* ─── Landing page responsive ─── */
+@media (max-width: 560px) {
+  .landing-title { font-size: 42px !important; }
+  .landing-subtitle { font-size: 19px !important; }
+  .landing-desc { font-size: 15px !important; }
+  .landing-footer { flex-direction: column; align-items: flex-start !important; gap: 6px; padding: 14px 20px !important; }
+}
+
+/* Top bar mobile (hamburguer + título) */
+.mobile-topbar {
+  display: none;
+  align-items: center; gap: 12px;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 10px 16px;
+  position: sticky; top: 0; z-index: 50;
+}
+@media (max-width: 900px) {
+  .mobile-topbar { display: flex; }
+}

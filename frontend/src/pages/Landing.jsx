@@ -104,7 +104,7 @@ export default function Landing() {
       {/* Barra de navegação */}
       <header style={{
         display: "flex", alignItems: "center", justifyContent: "flex-end",
-        padding: "12px 48px 20px",
+        padding: "12px 24px 20px",
       }}>
         <button
           onClick={() => navigate("/login")}
@@ -136,12 +136,12 @@ export default function Landing() {
       <main style={{
         flex: 1, display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center",
-        padding: "40px 24px", textAlign: "center",
+        padding: "32px 20px", textAlign: "center",
       }}>
-        <div style={{ maxWidth: 680 }}>
+        <div style={{ maxWidth: 680, width: "100%" }}>
           <div style={{ fontSize: 56, marginBottom: 24 }}>🌸</div>
 
-          <h1 style={{
+          <h1 className="landing-title" style={{
             color: "#fff", fontSize: 72, fontWeight: 800,
             lineHeight: 1.1, marginBottom: 28,
             fontFamily: "Georgia, 'Times New Roman', serif",
@@ -150,7 +150,7 @@ export default function Landing() {
             Sala Lilás
           </h1>
 
-          <p style={{
+          <p className="landing-subtitle" style={{
             color: "rgba(255,255,255,0.92)", fontSize: 28,
             lineHeight: 1.7, marginBottom: 20,
             fontFamily: "Georgia, 'Times New Roman', serif",
@@ -160,7 +160,7 @@ export default function Landing() {
             para mulheres em situação de violência.
           </p>
 
-          <p style={{
+          <p className="landing-desc" style={{
             color: "rgba(255,255,255,0.70)", fontSize: 20,
             lineHeight: 1.8, marginBottom: 48,
             fontFamily: "'Segoe UI', Arial, sans-serif",
@@ -203,11 +203,13 @@ export default function Landing() {
       <section style={{
         background: "rgba(255,255,255,0.07)",
         borderTop: "1px solid rgba(255,255,255,0.1)",
-        padding: "40px 48px",
+        padding: "40px 24px",
       }}>
         <div style={{
           maxWidth: 900, margin: "0 auto",
-          display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24,
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: 24,
         }}>
           {[
             {
@@ -241,8 +243,8 @@ export default function Landing() {
       </section>
 
       {/* Rodapé */}
-      <footer style={{
-        padding: "18px 48px", borderTop: "1px solid rgba(255,255,255,0.08)",
+      <footer className="landing-footer" style={{
+        padding: "18px 24px", borderTop: "1px solid rgba(255,255,255,0.08)",
         display: "flex", alignItems: "center", justifyContent: "space-between",
         flexWrap: "wrap", gap: 8,
       }}>
