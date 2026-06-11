@@ -86,10 +86,28 @@ export default function Landing() {
   return (
     <div style={{
       minHeight: "100vh",
-      background: "linear-gradient(160deg, #4c1d95 0%, #7c3aed 60%, #a78bfa 100%)",
+      position: "relative",
+      overflow: "hidden",
       display: "flex",
       flexDirection: "column",
     }}>
+      {/* Imagem de fundo com leve blur */}
+      <div style={{
+        position: "fixed", inset: 0,
+        backgroundImage: "url('/bg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        filter: "blur(6px)",
+        transform: "scale(1.1)",
+        zIndex: -2,
+      }} />
+
+      {/* Overlay gradiente lilás para legibilidade */}
+      <div style={{
+        position: "fixed", inset: 0,
+        background: "linear-gradient(160deg, rgba(76,29,149,0.85) 0%, rgba(124,58,237,0.78) 60%, rgba(167,139,250,0.7) 100%)",
+        zIndex: -1,
+      }} />
 
       {/* Logo centralizado no topo */}
       <div style={{

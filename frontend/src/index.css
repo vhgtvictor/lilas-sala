@@ -187,8 +187,20 @@ tbody tr:hover { background: var(--gray-50); }
 
 /* Login page */
 .login-page {
-  min-height: 100vh; background: var(--lilas-dark);
+  min-height: 100vh; position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
+}
+.login-page::before {
+  content: ""; position: fixed; inset: 0;
+  background-image: url('/bg.jpg');
+  background-size: cover; background-position: center;
+  filter: blur(6px); transform: scale(1.1);
+  z-index: -2;
+}
+.login-page::after {
+  content: ""; position: fixed; inset: 0;
+  background: rgba(91, 33, 182, 0.78);
+  z-index: -1;
 }
 .login-box {
   background: var(--white); border-radius: 12px; padding: 40px;
@@ -200,8 +212,20 @@ tbody tr:hover { background: var(--gray-50); }
 
 /* Public scheduling */
 .public-page {
-  min-height: 100vh; background: linear-gradient(135deg, var(--lilas-dark) 0%, #9d4edd 100%);
+  min-height: 100vh; position: relative; overflow: hidden;
   display: flex; align-items: flex-start; justify-content: center; padding: 40px 20px;
+}
+.public-page::before {
+  content: ""; position: fixed; inset: 0;
+  background-image: url('/bg.jpg');
+  background-size: cover; background-position: center;
+  filter: blur(6px); transform: scale(1.1);
+  z-index: -2;
+}
+.public-page::after {
+  content: ""; position: fixed; inset: 0;
+  background: linear-gradient(135deg, rgba(91,33,182,0.78) 0%, rgba(157,78,221,0.72) 100%);
+  z-index: -1;
 }
 .public-box {
   background: var(--white); border-radius: 12px; padding: 36px;
